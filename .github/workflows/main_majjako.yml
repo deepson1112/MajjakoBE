@@ -59,7 +59,11 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      
+      - name: Collect Static Files
+        run: |
+          source venv/bin/activate
+          python manage.py collectstatic --noinput
+ 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
