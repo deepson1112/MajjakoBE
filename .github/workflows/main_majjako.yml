@@ -9,8 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
    
-      
+
     steps:
       - uses: actions/checkout@v4
 
@@ -33,14 +34,15 @@ jobs:
       - name: Load environment variables
         run: |
           source venv/bin/activate
-          python -c "from dotenv import load_dotenv; load_dotenv()"
-
+          cp .env MajjakoBE/.env
+          python -c "from dotenv import load_dotenv; load_dotenv(dotenv_path='MajjakoBE/.env')"
         
       # - name: Collect Static Files
       #   run: |
       #     source venv/bin/activate
       #     python manage.py collectstatic --noinput
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+          
+      # Optional step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -49,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
+          path:
             release.zip
             !venv/
 
@@ -59,8 +61,13 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
+      - name: 'Azure Login'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
