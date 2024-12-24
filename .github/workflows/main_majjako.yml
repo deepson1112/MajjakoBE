@@ -63,8 +63,8 @@ jobs:
       - name: Collect Static Files
         run: |
           source venv/bin/activate
-          export DJANGO_SETTINGS_MODULE=your_project.settings  # Add this line to set DJANGO_SETTINGS_MODULE
-          pip install -r requirements.txt  # Ensure this line is included before running manage.py
+          export DJANGO_SETTINGS_MODULE=dvls.settings  
+          pip install -r requirements.txt  
           python manage.py collectstatic --noinput
  
       - name: 'Deploy to Azure Web App'
