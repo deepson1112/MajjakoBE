@@ -51,12 +51,28 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Check Environment Variables
+      - name: Set Up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Fetch Environment Variables from Azure Web App
         run: |
-          # This will print all environment variables to the console
+          az webapp config appsettings list --name YourAppName --resource-group YourResourceGroupName --query "[].{name:name, value:value}" > env.json
+          cat env.json
+
+      - name: Set Environment Variables
+        run: |
           source venv/bin/activate
-          echo "Environment Variables:"
-          env
+          for row in $(cat env.json | jq -r '.[] | @base64'); do
+              _jq() {
+               echo ${row} | base64 --decode | jq -r ${1}
+              }
+              echo "$(_jq '.name')=$(_jq '.value')" >> $GITHUB_ENV
+          done
+
+      - name: Check Environment Variables
+        run: env
 
       - name: Collect Static Files
         run: |
@@ -71,3 +87,4 @@ jobs:
           app-name: 'Majjako'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07AFA3D37E7146DFAE9E756F77555E75 }}
+
