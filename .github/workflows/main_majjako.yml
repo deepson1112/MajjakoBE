@@ -58,7 +58,7 @@ jobs:
 
       - name: Fetch Environment Variables from Azure Web App
         run: |
-          az webapp config appsettings list --name YourAppName --resource-group YourResourceGroupName --query "[].{name:name, value:value}" > env.json
+          az webapp config appsettings list --name Majjako --resource-group Majjako_group-bcdf --query "[].{name:name, value:value}" > env.json
           cat env.json
 
       - name: Set Environment Variables
