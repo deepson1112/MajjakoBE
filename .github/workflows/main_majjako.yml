@@ -9,52 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DJANGO_SETTINGS_MODULE: "dvls.settings"
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SENDER_EMAIL: ${{ secrets.DATABASE_URL }}
-      DEBUG: "FALSE"
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_PORT: "5432"
-      ALLOWED_HOSTS: "*"
-      CORS_ALLOWED_ORIGINS: ${{ secrets.CORS_ALLOWED_ORIGINS }}
-      CORS_ORIGIN_ALLOW_ALL: "True"
-      CORS_ALLOW_CREDENTIALS: "True"
-      DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
-      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-      EMAIL_PORT: "587"
-      CSRF_TRUSTED_ORIGINS: ${{ secrets.CSRF_TRUSTED_ORIGINS }}
-      MESSAGE_SERVER: ${{ secrets.MESSAGE_SERVER }}
-      FRONTEND_SITE: "majjakodeals.com"
-      TEAM_NAME: "DVLS"
-      DOMAIN: "dev.chowchowexpress.com"
-      SPARROW_SMS_TOKEN: ${{ secrets.SPARROW_SMS_TOKEN }}
-      ACCESS_TOKEN_URL: ${{ secrets.ACCESS_TOKEN_URL }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
-      YOUR_GOOGLE_CLIENT_ID: ${{ secrets.YOUR_GOOGLE_CLIENT_ID }}
-      YOUR_GOOGLE_CLIENT_SECRET: ${{ secrets.YOUR_GOOGLE_CLIENT_SECRET }}
-      PRODUCTION_MEDIA_CONNECTION_STRING: ${{ secrets.PRODUCTION_MEDIA_CONNECTION_STRING }}
-      AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
-      AZURE_ACCOUNT_KEY: ${{ secrets.AZURE_ACCOUNT_KEY }}
-      AZURE_CONTAINER_NAME: "majjakomedia"
-      ESEWA_URL: "https://rc-epay.esewa.com.np/api/epay/main/v2/form"
-      ESEWA_SECRET: ${{ secrets.ESEWA_SECRET }}
-      ESEWA_STATUS_CHECK_URL: "https://uat.esewa.com.np/api/epay/transaction/status/"
-      EMAIL_USE_TLS: "True"
-      PASSWORD_RESET_CONFIRM_URL: "dvls.aayush-basnet.com.np"
-      INTERNAL_IPS: "127.0.0.1,localhost,dev.majjakodeals.com"
-      REDIS_HOST: "MajjakoApp.redis.cache.windows.net"
-      REDIS_PORT: "6380"
-      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-      REDIS_DB: "0"
-      REDIS_USE_SSL: "True"
+   
       
     steps:
       - uses: actions/checkout@v4
@@ -81,10 +36,10 @@ jobs:
           python -c "from dotenv import load_dotenv; load_dotenv()"
 
         
-      - name: Collect Static Files
-        run: |
-          source venv/bin/activate
-          python manage.py collectstatic --noinput
+      # - name: Collect Static Files
+      #   run: |
+      #     source venv/bin/activate
+      #     python manage.py collectstatic --noinput
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
