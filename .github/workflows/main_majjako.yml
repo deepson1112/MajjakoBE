@@ -26,10 +26,8 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          pip install -r requirements.txt  # Ensure this line is included in the activation step
       
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
@@ -62,6 +60,7 @@ jobs:
       - name: Collect Static Files
         run: |
           source venv/bin/activate
+          pip install -r requirements.txt  # Ensure this line is included before running manage.py
           python manage.py collectstatic --noinput
  
       - name: 'Deploy to Azure Web App'
