@@ -9,7 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      DJANGO_SETTINGS_MODULE: "dvls.settings"
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SENDER_EMAIL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -33,6 +37,7 @@ jobs:
         run: |
           source venv/bin/activate
           python -c "from dotenv import load_dotenv; load_dotenv()"
+
         
       - name: Collect Static Files
         run: |
