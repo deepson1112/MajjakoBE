@@ -1,0 +1,81 @@
+{% load i18n %}
+
+{% block subject %}
+  {% blocktrans %}Account activation on {{ site_name }}{% endblocktrans %}
+{% endblock %}
+
+{% block text_body %}
+  {% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}
+
+  {% trans 'Please go to the following page to activate account:' %}
+  {{ protocol }}://{{ domain }}/{{ url|safe }}
+
+  {% trans 'Thanks for using our site!' %}
+
+  {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock %}
+
+{% block html_body %}
+  <div style="
+    background-color: #f5f8fa;
+    width: 100%;
+    margin: auto 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: Lato, sans-serif;
+    font-size: 16px;
+    color: #33475b;
+    word-break: break-word;
+  ">
+    <div id="email" style="margin: auto; width: 750px; background-color: white">
+      <table role="presentation" width="100%">
+        <tr>
+          <td align="center" style="color: white">
+            <img alt="Logo" src="https://dev.majjakodeals.com/media/retail-products-variations/final-white.png" width="200px" align="middle" />
+          </td>
+        </tr>
+      </table>
+
+      <table bgcolor="#EAF0F6" style="width: 100%; border-collapse: collapse; padding: 5px 15px 5px 15px">
+        <tr>
+          <td>
+            <h2 style="text-align: center">{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}</h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              {% trans 'Please go to the following page to activate account:' %}
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              <a href="{{ protocol }}://{{ domain }}/{{ url|safe }}">{{ protocol }}://{{ domain }}/{{ url|safe }}</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              {% trans 'Thanks for using our site!' %}
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="2px" style="padding: 5px 5px 15px 15px"></table>
+
+      <table role="presentation" bgcolor="#f96400" width="100%">
+        <tr>
+          <td align="center" style="padding: 15px 15px; color: #fff">
+            <p>
+              {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endblock %}
