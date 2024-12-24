@@ -57,6 +57,16 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+     
+ 
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
+        with:
+          app-name: 'Majjako'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07AFA3D37E7146DFAE9E756F77555E75 }}
+# checking
       - name: Check Environment Variables
         run: env
 
@@ -66,11 +76,3 @@ jobs:
           echo "DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"  # Print environment variable
           pip install -r requirements.txt  # Install dependencies
           python manage.py collectstatic --noinput
- 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'Majjako'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07AFA3D37E7146DFAE9E756F77555E75 }}
