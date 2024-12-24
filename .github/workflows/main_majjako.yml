@@ -116,6 +116,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Majjako'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07AFA3D37E7146DFAE9E756F77555E75 }}
+          app-name: 'MajjakoBackEnd'
+          slot-name: 'deploy'
